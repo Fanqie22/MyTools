@@ -1,0 +1,137 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mytools.dao.mainDao">
+	<!--目的:为dao接口方法提供sql语句配置 即针对dao接口中的方法编写我们的sql语句 -->
+
+	<!-- 动态insert用户发布动态,插入数据库 -->
+	<!-- 定义两个sql片段，第一个对应字段名,id属性值任意并且唯一 -->
+	<sql id="tidingsKey">
+		<trim suffixOverrides=",">
+			<if test="tidingsid!=null">tidingsid,</if>
+			<if test="usermail!=null">usermail,</if>
+			<if test="username!=null">username,</if>
+			<if test="usericon!=null">usericon,</if>
+			<if test="senddate!=null">senddate,</if>
+			<if test="support!=null">support,</if>
+			<if test="tidings!=null">tidings,</if>
+		</trim>
+	</sql>
+	<!-- 定义第二个sql片段，第二个对应?，key属性值任意并且唯一 -->
+	<sql id="tidingsValues">
+		<trim suffixOverrides=",">
+			<if test="tidingsid!=null">#{tidingsid},</if>
+			<if test="usermail!=null">#{usermail},</if>
+			<if test="username!=null">#{username},</if>
+			<if test="usericon!=null">#{usericon},</if>
+			<if test="senddate!=null">#{senddate},</if>
+			<if test="support!=null">#{support},</if>
+			<if test="tidings!=null">#{tidings},</if>
+		</trim>
+	</sql>
+	<!-- <include refid="key"/>和<include refid="value"/>表示引用上面sql片段 -->
+	<insert id="insertTidings" parameterType="Tidings">
+		insert into tidings(
+		<include refid="tidingsKey" />
+		)
+		values(
+		<include refid="tidingsValues" />
+		);
+	</insert>
+
+	<!--查询我发布的动态 -->
+	<select id="queryTidingsById" resultType="Tidings">
+		select *
+		from tidings
+		where
+		usermail=#{usermail}
+	</select>
+
+	<!--查询出我的所有好友 -->
+	<select id="queryFriends" resultType="string">
+		SELECT friendmail
+		from
+		friends
+		WHERE
+		usermail=#{usermail}
+	</select>
+
+	<!-- 查询最新的10条朋友动态 -->
+	<select id="queryTidings" resultType="Tidings">
+		SELECT *
+		from tidings
+		WHERE usermail IN
+		<foreach collection="friends" item="friends" index="index"
+			open="(" close=")" separator=",">
+			#{friends}
+		</foreach>
+		order by senddate desc
+	</select>
+
+	<!-- 插入朋友的评论 -->
+	<sql id="commentsKey">
+		<trim suffixOverrides=",">
+			<if test="tidingsid!=null">tidingsid,</if>
+			<if test="usermail!=null">usermail,</if>
+			<if test="username!=null">username,</if>
+			<if test="comment!=null">comment,</if>
+			<if test="commentdate!=null">commentdate,</if>
+		</trim>
+	</sql>
+	<!-- 定义第二个sql片段，第二个对应?，key属性值任意并且唯一 -->
+	<sql id="commentsValues">
+		<trim suffixOverrides=",">
+			<if test="tidingsid!=null">#{tidingsid},</if>
+			<if test="usermail!=null">#{usermail},</if>
+			<if test="username!=null">#{username},</if>
+			<if test="comment!=null">#{comment},</if>
+			<if test="commentdate!=null">#{commentdate},</if>
+		</trim>
+	</sql>
+	<!-- <include refid="key"/>和<include refid="value"/>表示引用上面sql片段 -->
+	<insert id="insertComments" parameterType="Comments">
+		insert into comments(
+		<include refid="commentsKey" />
+		)
+		values(
+		<include refid="commentsValues" />
+		);
+	</insert>
+
+	<!-- 查询这条动态的所有评论 -->
+	<select id="queryComments" resultType="Comments">
+		SELECT *
+		from comments
+		WHERE
+		tidingsid=#{tidingsid}
+	</select>
+
+	<!-- 查询天气 -->
+	<select id="queryWeather" resultType="Weather">
+		SELECT *
+		from weather
+	</select>
+
+
+	<insert id="insertZan">
+		insert into zan(usermail,tidingsid)
+		values(#{usermail},#{tidingsid})
+	</insert>
+
+	<!-- 是否点赞了 -->
+	<select id="zan" resultType="Zan">
+		SELECT tidingsid
+		from zan
+		where
+		usermail=#{usermail}
+	</select>
+
+	<!-- 更新点赞数量 -->
+	<update id="updateSupport">
+		update tidings
+		set support=support+1
+		where
+		tidingsid=#{tidingsid}
+	</update>
+
+</mapper>

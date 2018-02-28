@@ -1,0 +1,89 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mytools.dao.UsersDao">
+	<!--目的:为dao接口方法提供sql语句配置 即针对dao接口中的方法编写我们的sql语句 -->
+
+	<!-- sql标签用于减少代码冗余 -->
+	<sql id="allColumn">
+		usermail,username,userpassword,userphone,useridnum,
+		userbirth,usersex,useraddress,userlabel
+	</sql>
+
+	<!--用于登录的查询 -->
+	<select id="loginQuery" resultType="Users">
+		select *
+		from users
+		where
+		usermail=#{usermail} and userpassword=#{userpassword}
+	</select>
+	<!--用于查询users表中所有符合条件的用户 -->
+	<!--这里要注意resultType 是指返回的每一条数据的类型,而不是整个返回类型 -->
+	<!--比如这里返回一个List<Users>是整个返回,每一条数据其实是Users -->
+	<select id="queryAllById" resultType="Users">
+		select
+		<include refid="allColumn" />
+		from users
+		<where>
+			<if test="usermail != null and !&quot;&quot;.equals(usermail.trim())">
+				and usermail=#{usermail}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryMailById" resultType="String">
+		select
+		usermail
+		from users
+		<where>
+			<if test="usermail != null and !&quot;&quot;.equals(usermail.trim())">
+				and usermail=#{usermail}
+			</if>
+		</where>
+	</select>
+
+	<!-- 动态insert -->
+	<!-- 定义两个sql片段，第一个对应字段名,id属性值任意并且唯一 -->
+	<sql id="k">
+		<trim suffixOverrides=",">
+			<if test="usermail!=null">usermail,</if>
+			<if test="userphone!=null">userphone,</if>
+			<if test="username!=null">username,</if>
+			<if test="userpassword!=null">userpassword,</if>
+			<if test="useridnum!=null">useridnum,</if>
+			<if test="userbirth!=null">userbirth,</if>
+			<if test="usersex!=null">usersex,</if>
+			<if test="useraddress!=null">useraddress,</if>
+			<if test="userlabel!=null">userlabel,</if>
+		</trim>
+	</sql>
+	<!-- 定义第二个sql片段，第二个对应?，key属性值任意并且唯一 -->
+	<sql id="v">
+		<trim suffixOverrides=",">
+			<if test="usermail!=null">#{usermail},</if>
+			<if test="userphone!=null">#{userphone},</if>
+			<if test="username!=null">#{username},</if>
+			<if test="userpassword!=null">#{userpassword},</if>
+			<if test="useridnum!=null">#{useridnum},</if>
+			<if test="userbirth!=null">#{userbirth},</if>
+			<if test="usersex!=null">#{usersex},</if>
+			<if test="useraddress!=null">#{useraddress},</if>
+			<if test="userlabel!=null">#{userlabel},</if>
+		</trim>
+	</sql>
+
+	<!-- <include refid="key"/>和<include refid="value"/>表示引用上面sql片段 -->
+	<insert id="registerInsert" parameterType="Users">
+		insert into users(
+		<include refid="k" />
+		)
+		values(
+		<include refid="v" />
+		);
+	</insert>
+
+
+
+
+
+</mapper>

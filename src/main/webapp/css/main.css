@@ -1,0 +1,68 @@
+.daohang {
+	/*background-color: darkgoldenrod;*/
+	
+}
+
+.head {
+	width: 100%;
+	height: 60px;
+	/*background-color: darkcyan;*/
+}
+
+.logo {
+	width: 60px;
+	height: 60px;
+}
+
+.kongge {
+	width: 260px;
+}
+
+.main {
+	background-color: #f8f8f8;
+	width: 100%;
+	height: 1000px;
+}
+
+.main-center {
+	background-color: #f8f8f8;
+	margin: 30px auto;
+	width: 52%;
+	height: 700px;
+}
+
+.main-center-card {
+	background-color: #f8f8f8;
+	float: inherit margin-top: 20px;
+	width: 100%;
+	/*height: 150px;*/
+	height: auto;
+	display: inline-block !important;
+	display: inline;
+}
+.main-center-comments{
+	float:right;
+}
+
+
+.main-left {
+	background-color: #f8f8f8; float : left;
+	width: 315px;
+	height: 700px;
+	float: left;
+}
+
+.main-right {
+	background-color: #f8f8f8;
+	float: right;
+	width: 315px;
+	height: 700px;
+}
+.main-right-left{
+	float: left;
+}
+.main-right-right{
+	width:195px;
+	height:80px;
+	float: right;
+}
