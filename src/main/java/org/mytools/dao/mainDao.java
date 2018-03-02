@@ -1,5 +1,6 @@
 package org.mytools.dao;
 
+import java.sql.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.mytools.entity.Comments;
@@ -33,7 +34,7 @@ public interface mainDao {
 	Weather queryWeather();
 
 	// 插入点赞记录
-	int insertZan(@Param("usermail") String usermail, @Param("tidingsid") String tidingsid);
+	int insertZan(@Param("usermail") String usermail,@Param("zantimes") String zantimes, @Param("tidingsid") String tidingsid);
 
 	// 查询用户赞了的所有的动态的id
 	List<Zan> zan(@Param("usermail") String usermail);

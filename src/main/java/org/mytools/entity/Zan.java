@@ -3,10 +3,19 @@ package org.mytools.entity;
 public class Zan {
 	private String usermail;
 	private String tidingsid;
+	private String zantimes;
 	private String zan = "已赞";
 	private String nozan = "赞一下";
 	private String z;
 	
+
+	public String getZantimes() {
+		return zantimes;
+	}
+
+	public void setZantimes(String zantimes) {
+		this.zantimes = zantimes;
+	}
 
 	public String getZ() {
 		return z;
@@ -50,10 +59,8 @@ public class Zan {
 
 	@Override
 	public String toString() {
-		return "Zan [usermail=" + usermail + ", tidingsid=" + tidingsid + ", zan=" + zan + ", nozan=" + nozan + ", z="
-				+ z + "]";
+		return "Zan [usermail=" + usermail + ", tidingsid=" + tidingsid + ", zantimes=" + zantimes + ", zan=" + zan
+				+ ", nozan=" + nozan + ", z=" + z + "]";
 	}
-
-
 
 }

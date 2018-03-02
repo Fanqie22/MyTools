@@ -24,11 +24,9 @@
 		select
 		<include refid="allColumn" />
 		from users
-		<where>
-			<if test="usermail != null and !&quot;&quot;.equals(usermail.trim())">
-				and usermail=#{usermail}
-			</if>
-		</where>
+		where usermail=#{usermail}
+		<!-- <where> <if test="usermail != null and !&quot;&quot;.equals(usermail.trim())"> 
+			and usermail=#{usermail} </if> </where> -->
 	</select>
 
 	<select id="queryMailById" resultType="String">

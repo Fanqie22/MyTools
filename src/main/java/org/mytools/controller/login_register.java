@@ -42,6 +42,7 @@ public class login_register {
 				return "login";
 			} else {
 				model.addAttribute("users",users);
+				request.getSession().setAttribute("users", users);
 				return "forward:main";
 			}
 

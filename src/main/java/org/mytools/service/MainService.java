@@ -30,7 +30,7 @@ public interface MainService {
 	Weather queryWeather();
 
 	// 插入点赞记录
-	int insertZan(String usermail, String tidingsid);
+	int insertZan(String usermail, String zantimes, String tidingsid);
 
 	// 是否点赞了
 	List<Zan> zan(String usermail);

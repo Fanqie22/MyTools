@@ -40,29 +40,40 @@
 	display: inline-block !important;
 	display: inline;
 }
-.main-center-comments{
-	float:right;
+
+.main-center-comments {
+	float: right;
 }
 
+.main-center-comment {
+	width: 400px;
+	float: left;
+}
 
 .main-left {
-	background-color: #f8f8f8; float : left;
+	float: left;
 	width: 315px;
 	height: 700px;
 	float: left;
 }
 
 .main-right {
-	background-color: #f8f8f8;
 	float: right;
 	width: 315px;
 	height: 700px;
 }
-.main-right-left{
+
+.main-right-left {
 	float: left;
 }
-.main-right-right{
-	width:195px;
-	height:80px;
+
+.main-right-right {
+	width: 195px;
+	height: 80px;
 	float: right;
+}
+
+
+.input-comments{
+	margin: -2px 22px 5px;
 }

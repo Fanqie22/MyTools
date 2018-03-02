@@ -58,8 +58,8 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int insertZan(String usermail, String tidingsid) {
-		return mainDao.insertZan(usermail, tidingsid);
+	public int insertZan(String usermail, String zantimes, String tidingsid) {
+		return mainDao.insertZan(usermail, zantimes, tidingsid);
 	}
 
 	@Override

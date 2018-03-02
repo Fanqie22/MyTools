@@ -109,13 +109,13 @@
 	<!-- 查询天气 -->
 	<select id="queryWeather" resultType="Weather">
 		SELECT *
-		from weather
+		from weather order by times desc limit 1
 	</select>
 
 
 	<insert id="insertZan">
-		insert into zan(usermail,tidingsid)
-		values(#{usermail},#{tidingsid})
+		insert into zan(usermail,zantimes,tidingsid)
+		values(#{usermail},#{zantimes},#{tidingsid})
 	</insert>
 
 	<!-- 是否点赞了 -->
