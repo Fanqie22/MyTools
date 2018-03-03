@@ -84,7 +84,7 @@ public class MainController {
 			model.addAttribute("weather", weather);
 			model.addAttribute("users", user);
 			model.addAttribute("zan", zan);
-			//System.out.println("tiddddddddddddddddddd---->"+tidings);
+			// System.out.println("tiddddddddddddddddddd---->"+tidings);
 			return "main";
 
 		}
@@ -93,7 +93,7 @@ public class MainController {
 
 	// 这里的服务用语用户发布动态
 	@RequestMapping(value = "/sendTidings")
-	public String mailnumcheck(HttpServletRequest request, RedirectAttributes model) {
+	public String mailnumcheck(HttpServletRequest request) {
 		// Users users = (Users) httpSession.getAttribute("users");
 		String usermail = request.getParameter("usermail");
 		String tiding = request.getParameter("tiding");
@@ -115,7 +115,7 @@ public class MainController {
 		// tidings.setTidingsid(mails[0] + tidings.getSenddate());//
 		tidings.setTidingsid(ids);
 		int bools = mainService.insertTidings(tidings);
-		model.addFlashAttribute("usermails", usermail);
+		// model.addFlashAttribute("usermails", usermail);
 
 		if (bools != 0)
 			return "redirect:main";
@@ -140,20 +140,26 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/sendComments")
-	public String Comments(String usermail,String mycomments,String username,String tidingsid) {
-		//String usermail = request.getParameter("usermail");
-		//String mycomments = request.getParameter("mycomments");
-		//String username = request.getParameter("username");
-		//String tidingsid = request.getParameter("comment-tid");
-		System.out.println("这里是mycomments 服务 :" + usermail + mycomments + username+"tidingid: "+tidingsid);
+	public String Comments(HttpServletRequest request) {
+		// String mycomments, String usermail, String username,
+		// String tidingsid
+		String usermail = request.getParameter("usermail");
+		String mycomment = request.getParameter("mycomments");
+		String username = request.getParameter("username");
+		String tidingsid = request.getParameter("tids");
+
+		System.out.println("这里是  mycomments 服务 ------> :" + usermail + mycomment + username + "tidingid: " + tidingsid);
 		Comments comments = new Comments();
-		comments.setComment(mycomments);
+		comments.setComment(mycomment);
 		comments.setCommentdate(new Timestamp(System.currentTimeMillis()));
 		comments.setTidingsid(tidingsid);
 		comments.setUsermail(usermail);
 		comments.setUsername(username);
 		mainService.insertComments(comments);
-		return "redirect:main";
+		// request.getSession().setAttribute("users", users);
+		//return "redirect:main";
+		 return "forward:main";
+
 	}
 
 }

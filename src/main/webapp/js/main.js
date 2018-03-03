@@ -72,37 +72,3 @@ function sendTidings() {
 
 	}
 }
-
-function sendComments(tidid) {
-	alert(tidid);
-	var mail = document.getElementById("usermails");
-	var name = document.getElementById("usernames");
-	var usermail = mail.value;
-	var username = name.value;
-	var userInput = document.getElementById("mycomment");
-	var strValue = userInput.value;
-	var form = document.getElementById('commentsform');
-	// if (strValue == '' || strValue.length == 0 || strValue == null) {
-	// } else {
-	alert(strValue);
-	// form.submit();
-	$.ajax({
-		url : "sendComments",
-		type : "POST",
-		datatype : "text",
-		data : {
-			"usermail" : usermail,
-			"mycomments" : strValue,
-			"username" : username,
-			"tidingsid" : tidid
-		},
-		success : function(data) {
-			// form.submit();
-			location.reload();
-		}
-	})
-}
-
-function gettidid(id) {
-	alert(id);
-}

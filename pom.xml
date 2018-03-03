@@ -5,7 +5,7 @@
 	<artifactId>MyTools</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>seckill Maven Webapp</name>
+	<name>MyTools Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 
